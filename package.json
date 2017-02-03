@@ -1,0 +1,32 @@
+{
+    "name": "typescript-slider-demo",
+    "version": "1.0.0",
+    "description": "create a Slider with typescript and React",
+    "main": "build/js/bundle.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Kremlianski/typescript-slider-demo"
+    },
+    "keywords": [],
+    "author": "Kremlianski",
+    "license": "MIT",
+    "devDependencies": {
+        "browserify": "^14.0.0",
+        "gulp": "^3.9.1",
+        "gulp-sourcemaps": "^2.4.0",
+        "gulp-uglify": "^2.0.1",
+        "gulp-util": "^3.0.8",
+        "tsify": "^3.0.1",
+        "typescript": "^2.1.5",
+        "vinyl-buffer": "^1.0.0",
+        "vinyl-source-stream": "^1.1.0",
+        "watchify": "^3.9.0"
+    },
+    "dependencies": {
+        "react": "^15.4.2",
+        "react-dom": "^15.4.2"
+    }
+}
