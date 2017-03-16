@@ -10,12 +10,17 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 
 var watchedBrowserify = watchify(browserify({
-    basedir: '.',
-    debug: true,
-    entries: ['src/ts/main.tsx'],
-    cache: {},
-    packageCache: {}
-}).plugin(tsify));
+        basedir: '.',
+        debug: true,
+        entries: ['src/ts/main.tsx'],
+        cache: {},
+        packageCache: {}
+    }).plugin(tsify)
+    .transform('babelify', {
+        presets: ['es2015'],
+        extensions: ['.ts', '.tsx']
+    })
+);
 
 
 function bundle() {
@@ -23,7 +28,7 @@ function bundle() {
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(dist));
