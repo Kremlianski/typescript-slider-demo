@@ -108,7 +108,7 @@ const props: SliderProps = {
 
   generals: {
     firstDelay: 1000,
-    delay: 5000
+    delay: 4000
   },
 
   preloads: ["img/step1.jpg", "img/car.png", "img/step2.jpg", "img/car1.png"]
