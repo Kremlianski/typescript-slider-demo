@@ -24,6 +24,7 @@ var watchedBrowserify = watchify(browserify({
 
 
 function bundle() {
+    process.env.NODE_ENV = 'production';
     return watchedBrowserify
         .bundle()
         .pipe(source('bundle.js'))

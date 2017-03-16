@@ -11,7 +11,7 @@ class Slide extends React.Component<SlideProps, {}> {
 
     const props = this.props
 
-    function renderElement(elementType: string, className?: string,
+    function renderElement(i: number, elementType: string, className?: string,
       style?: {[index: string]: string}, classIn?: string, src?: string,
       link?: string, text?: string,  children: SlideChild[] = []): JSX.Element {
         let result: JSX.Element
@@ -27,16 +27,16 @@ class Slide extends React.Component<SlideProps, {}> {
 
         switch(elementType) {
           case 'block': 
-            return <div className={classString} style={style0}>{text} {
-              children.map (y =>
-                renderElement(y.elementType, y.className, y.style,y.classIn, y.src, y.link, y.text)
+            return <div key={i} className={classString} style={style0}>{text} {
+              children.map ((y, i) =>
+                renderElement(i, y.elementType, y.className, y.style,y.classIn, y.src, y.link, y.text)
               )
             }
           </div>
           
-          case 'img': return <img src={src} className={classString} style={style0}  />
+          case 'img': return <img key={i} src={src} className={classString} style={style0}  />
 
-          case 'linked-img': return <a href={link}>
+          case 'linked-img': return <a key={i} href={link}>
             <img src={src} className={classString} style={style0} />
           </a>
           default: return <div />
@@ -55,8 +55,8 @@ class Slide extends React.Component<SlideProps, {}> {
             props.text && <a href={props.link}>{props.text}</a>
           }
         </div>
-        {props.containers && props.containers.map (x => 
-          renderElement(x.elementType, x.className, x.style,x.classIn, x.src, x.link, x.text, x.children))}
+        {props.containers && props.containers.map ((x, i) => 
+          renderElement(i, x.elementType, x.className, x.style,x.classIn, x.src, x.link, x.text, x.children))}
     </div>
   }
 }
@@ -113,12 +113,23 @@ export default class Slider extends React.Component<SliderProps, State> {
     }
 
 
+    function getInitialInterval(t: number):Promise<string> {
+        const f = new Promise(success =>{
+          window.setTimeout(() => success("!"), t)
+        })
+        return f
+      }
+
+
     if (this.props.preloads && this.props.preloads.length > 0) {
-    const promises = this.props.preloads.map(s => {
+
+    let promises: Promise<string>[] = this.props.preloads.map(s => {
       const img = document.createElement("img")
       img.src = s
-      onLoadPromise(img)
+      return onLoadPromise(img)
     })
+
+    promises.push(getInitialInterval(this.props.generals.firstDelay))
 
     Promise.all(promises).then((ignore) => this.nextSlide())
     
@@ -140,7 +151,7 @@ export default class Slider extends React.Component<SliderProps, State> {
     const slides = this.props.list
     return <div className="slider">
       {slides.map((slide, index, array) =>
-        <Slide style={slide.style} className={slide.className} text={slide.text} containers={slide.containers} active={index == this.state.active} link={slide.link} /> 
+        <Slide key={index} style={slide.style} className={slide.className} text={slide.text} containers={slide.containers} active={index == this.state.active} link={slide.link} /> 
        )}
        
        

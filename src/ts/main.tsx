@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import Slider from "./greet"
+import Slider from "./slider"
 import { SliderProps } from './structure'
 
 const props: SliderProps = {
