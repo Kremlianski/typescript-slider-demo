@@ -133,12 +133,13 @@ export default class Slider extends React.Component<SliderProps, State> {
 
     Promise.all(promises).then((ignore) => this.nextSlide())
     
-    } else this.timer = window.setTimeout(this.nextSlide, 5000)
+    } else this.timer = window.setTimeout(this.nextSlide, this.props.generals.firstDelay)
   }
     
   componentDidUpdate() {
+
     if(this.timer) window.clearTimeout(this.timer)
-    this.timer = window.setTimeout(this.nextSlide, 8000)
+    this.timer = window.setTimeout(this.nextSlide, this.props.generals.delay)
   }
 
   componentWillUnmount() {
