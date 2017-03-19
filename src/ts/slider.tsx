@@ -91,7 +91,6 @@ export default class Slider extends React.Component<SliderProps, State> {
     if (activeSlide - 1 <= 0) slide = this.props.list.length - 1
     else slide = activeSlide - 1
 
-    // if (slide == 0) this.props.list.length - 1
 
     this.setState({active: slide}) 
   }
