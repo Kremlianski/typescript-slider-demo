@@ -11,9 +11,16 @@ class Slide extends React.Component<SlideProps, {}> {
 
     const props = this.props
 
-    function renderElement(i: number, elementType: string, className?: string,
-      style?: {[index: string]: string}, classIn?: string, src?: string,
-      link?: string, text?: string,  children: SlideChild[] = []): JSX.Element {
+    function renderElement(
+      i: number,
+      elementType: string,
+      className?: string,
+      style?: {[index: string]: string},
+      classIn?: string,
+      src?: string,
+      link?: string,
+      text?: string,
+       children: SlideChild[] = []): JSX.Element {
         let result: JSX.Element
         let classString = ""
 
@@ -27,14 +34,18 @@ class Slide extends React.Component<SlideProps, {}> {
 
         switch(elementType) {
           case 'block': 
-            return <div key={i} className={classString} style={style0}>{text} {
-              children.map ((y, i) =>
-                renderElement(i, y.elementType, y.className, y.style,y.classIn, y.src, y.link, y.text)
-              )
-            }
-          </div>
+            return (
+              <div key={i} className={classString} style={style0}>{text} {
+                children.map ((y, i) =>
+                  renderElement(i, y.elementType, y.className,
+                  y.style,y.classIn, y.src, y.link, y.text)
+                )
+              }
+          </div>)
           
-          case 'img': return <img key={i} src={src} className={classString} style={style0}  />
+          case 'img': return (
+            <img key={i} src={src} className={classString} style={style0}  />
+            )
 
           case 'linked-img': return <a key={i} href={link}>
             <img src={src} className={classString} style={style0} />
@@ -48,7 +59,8 @@ class Slide extends React.Component<SlideProps, {}> {
     let classString = "slider__slide"
     if(props.className) classString += " " + props.className
 
-    return <div className={classString} data-active={props.active} style={props.style}>
+    return (
+      <div className={classString} data-active={props.active} style={props.style}>
 
         <div className="slider__slide__text">
           {
@@ -56,8 +68,10 @@ class Slide extends React.Component<SlideProps, {}> {
           }
         </div>
         {props.containers && props.containers.map ((x, i) => 
-          renderElement(i, x.elementType, x.className, x.style,x.classIn, x.src, x.link, x.text, x.children))}
+          renderElement(i, x.elementType, x.className,
+           x.style,x.classIn, x.src, x.link, x.text, x.children))}
     </div>
+    )
   }
 }
 
@@ -151,7 +165,13 @@ export default class Slider extends React.Component<SliderProps, State> {
     const slides = this.props.list
     return <div className="slider">
       {slides.map((slide, index, array) =>
-        <Slide key={index} style={slide.style} className={slide.className} text={slide.text} containers={slide.containers} active={index == this.state.active} link={slide.link} /> 
+        <Slide key={index} 
+        style={slide.style} 
+        className={slide.className} 
+        text={slide.text} 
+        containers={slide.containers} 
+        active={index == this.state.active} 
+        link={slide.link} /> 
        )}
        
        
