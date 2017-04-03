@@ -8,4 +8,4 @@ Creating of a beautiful slider with TypeScript
 See [Demo](http://projects.scalapro.net/typescript-slider-demo/)
 
 
-See[this article](http://scalapro.net/lets-create-a-slider-again/)
+See [this article](http://scalapro.net/lets-create-a-slider-again/)
